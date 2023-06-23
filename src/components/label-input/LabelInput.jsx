@@ -1,16 +1,27 @@
 import css from './LabelInput.module.css';
 
-export const LabelInput = ({ handleInputChange, value }) => {
+export const LabelInput = ({
+  handleInputChange,
+  value,
+  placeholder,
+  type,
+  name,
+  pattern,
+  title,
+  labelName,
+}) => {
   return (
-    <label>
-      <span>Name</span>
+    <label className={css.label}>
+      <span className={css.span}>{labelName}</span>
       <input
+        className={css.input}
         onChange={handleInputChange}
+        placeholder={placeholder}
         value={value}
-        type="text"
-        name="name"
-        pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-        title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+        type={type}
+        name={name}
+        pattern={pattern}
+        title={title}
         required
       />
     </label>

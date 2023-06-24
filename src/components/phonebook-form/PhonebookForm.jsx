@@ -2,6 +2,8 @@ import { Component } from 'react';
 import css from './PhonebookForm.module.css';
 import { LabelInput } from 'components/label-input/LabelInput';
 import { nanoid } from 'nanoid';
+import PropTypes from 'prop-types';
+import { Button } from 'components/button/Button';
 
 export class PhonebookForm extends Component {
   static defaultProps = {
@@ -18,11 +20,14 @@ export class PhonebookForm extends Component {
     const newContact = [
       { name: this.state.name, number: this.state.number, id: nanoid() },
     ];
-
-    const newArrOfContacts = [...this.props.contacts, ...newContact];
-    this.props.setAppState({
-      contacts: newArrOfContacts,
-    });
+    if (this.props.contacts.some(contact => this.state.name === contact.name)) {
+      alert(`${this.state.name} is already in contacts`);
+    } else {
+      const newArrOfContacts = [...this.props.contacts, ...newContact];
+      this.props.setAppState({
+        contacts: newArrOfContacts,
+      });
+    }
     this.setState({
       name: '',
       number: '',
@@ -56,10 +61,13 @@ export class PhonebookForm extends Component {
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           labelName="Number"
         />
-        <button className={css.addButton} type="submit">
-          Add contact
-        </button>
+        <Button type="sumbit" text="Add button" />
       </form>
     );
   }
 }
+
+PhonebookForm.propTypes = {
+  contacts: PropTypes.array,
+  setAppState: PropTypes.func,
+};

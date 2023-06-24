@@ -1,4 +1,5 @@
 import css from './LabelInput.module.css';
+import PropTypes from 'prop-types';
 
 export const LabelInput = ({
   handleInputChange,
@@ -26,4 +27,15 @@ export const LabelInput = ({
       />
     </label>
   );
+};
+
+LabelInput.propTypes = {
+  handleInputChange: PropTypes.func,
+  value: PropTypes.string,
+  placeholder: PropTypes.string,
+  type: PropTypes.string,
+  name: PropTypes.string,
+  pattern: PropTypes.string,
+  title: PropTypes.string,
+  labelName: PropTypes.string,
 };

@@ -1,10 +1,14 @@
 import { ContactListItem } from 'components/contact-list-item/ContactsListItem';
 import css from './ContactsList.module.css';
 import { Button } from 'components/button/Button';
-import { deleteContactById } from 'components/deleteContactById';
 import PropTypes from 'prop-types';
 
-export const ContactsList = ({ options, contacts, setAppState }) => {
+export const ContactsList = ({
+  options,
+  contacts,
+  setAppState,
+  deleteContactById,
+}) => {
   return (
     <ul className={css.list}>
       {options.map(option => (

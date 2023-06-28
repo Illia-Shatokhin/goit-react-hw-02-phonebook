@@ -3,30 +3,23 @@ import css from './ContactsList.module.css';
 import { Button } from 'components/button/Button';
 import PropTypes from 'prop-types';
 
-export const ContactsList = ({
-  options,
-  contacts,
-  setAppState,
-  deleteContactById,
-}) => {
+export const ContactsList = ({ contacts, setAppState, deleteContactById }) => {
   return (
     <ul className={css.list}>
-      {options.map(option => (
-        <ContactListItem key={option.id} option={option}>
-          {option.name !== 'No contacts' && (
-            <Button
-              type="button"
-              text="Delete"
-              id={option.id}
-              onClick={e => {
-                deleteContactById(
-                  e.target.getAttribute('id'),
-                  contacts,
-                  setAppState
-                );
-              }}
-            />
-          )}
+      {contacts.map(contact => (
+        <ContactListItem key={contact.id} contact={contact}>
+          <Button
+            type="button"
+            text="Delete"
+            id={contact.id}
+            onClick={e => {
+              deleteContactById(
+                e.target.getAttribute('id'),
+                contacts,
+                setAppState
+              );
+            }}
+          />
         </ContactListItem>
       ))}
     </ul>
@@ -34,7 +27,7 @@ export const ContactsList = ({
 };
 
 ContactsList.propTypes = {
-  options: PropTypes.array,
   contacts: PropTypes.array,
   setAppState: PropTypes.func,
+  deleteContactById: PropTypes.func,
 };

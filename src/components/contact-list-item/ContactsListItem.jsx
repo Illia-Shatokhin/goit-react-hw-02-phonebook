@@ -1,15 +1,15 @@
 import css from './ContactListItem.module.css';
 import PropTypes from 'prop-types';
 
-export const ContactListItem = ({ option, children }) => {
+export const ContactListItem = ({ contact, children }) => {
   return (
     <li className={css.listItem}>
-      {option.name} : {option.number} {children}
+      {contact.name} : {contact.number} {children}
     </li>
   );
 };
 
 ContactListItem.propTypes = {
-  option: PropTypes.object,
+  contact: PropTypes.object,
   children: PropTypes.element,
 };

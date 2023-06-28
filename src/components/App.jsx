@@ -4,6 +4,7 @@ import { HeadText } from './head-text/HeadText';
 import { ContactsList } from './contacts-list/ContactsList';
 import { PhonebookForm } from './phonebook-form/PhonebookForm';
 import { LabelInput } from './label-input/LabelInput';
+import { NoContactsMessage } from './noContactsMessage/noContactsMessage';
 
 export class App extends Component {
   state = {
@@ -16,19 +17,17 @@ export class App extends Component {
     filter: '',
   };
 
-  filteredArrOfContacts = [];
-
-  filterByName(contacts, value) {
-    return contacts.filter(contact => {
-      return contact.name.toLowerCase().startsWith(value.toLowerCase());
+  filterContacts() {
+    return this.state.contacts.filter(contact => {
+      return contact.name
+        .toLowerCase()
+        .startsWith(this.state.filter.toLowerCase());
     });
   }
 
   handleInputChangeFilter = e => {
     this.setState({ [e.target.name]: e.target.value });
-    this.filteredArrOfContacts = [
-      ...this.filterByName(this.state.contacts, e.target.value),
-    ];
+    this.filterContacts();
   };
 
   setAppState = obj => {
@@ -58,16 +57,15 @@ export class App extends Component {
           name="filter"
           labelName="Find contacts by name"
         />
-        <ContactsList
-          options={
-            this.state.filter.length === 0
-              ? this.state.contacts
-              : this.filteredArrOfContacts
-          }
-          contacts={this.state.contacts}
-          setAppState={this.setAppState}
-          deleteContactById={this.deleteContactById}
-        />
+        {this.filterContacts().length ? (
+          <ContactsList
+            contacts={this.filterContacts()}
+            setAppState={this.setAppState}
+            deleteContactById={this.deleteContactById}
+          />
+        ) : (
+          <NoContactsMessage name={this.state.filter} />
+        )}
       </div>
     );
   }
